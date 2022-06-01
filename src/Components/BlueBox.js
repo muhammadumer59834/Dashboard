@@ -30,7 +30,7 @@ const BlueBox = () => {
             const MounthDate = `${current.getMonth()}/01/${current.getFullYear()}`;
 
 
-            const url = `https://posapi.gtech.com.pk/api/post/SummaryBoxes?api=qTpq3bVFho&DateFrom${MounthDate}&DateTo=${date}`
+            const url = `https://posapi.gtech.com.pk/api/post/SummaryBoxes?api=qTpq3bVFho&DateFrom=${MounthDate}&DateTo=${date}`
 
 
             axios

@@ -1,15 +1,74 @@
-body{
+body {
   zoom: 90%;
 }
+
+
+.view {
+  width: 100%;
+}
+
+th,
+td {
+  margin: 0px 2px 0px 2px !important;
+}
+
+#dome {
+  height: 200px !important;
+  /* Just for the demo */
+  overflow-y: auto !important;
+  /* Trigger vertical scroll */
+}
+
+.wrapper {
+  /* position: relative; */
+  overflow-x: auto;
+  /* white-space: nowrap; */
+  background-color: white !important;
+}
+
+.sticky-col {
+  position: -webkit-sticky;
+  position: sticky;
+
+}
+
+.coltm4 {
+  background-color: #313b3f !important;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
+.ak {
+  width: 1px !important;
+  background-color: white !important;
+}
+
+.first-col {
+  z-index: 100 !important;
+  left: 0px;
+}
+
+
+
+.ind {
+  z-index: -1 !important;
+}
+
 @media screen and (max-width: 480px) {
- 
-  .alien{
+  .mobile-margin {
+    margin-top: 29px;
+  }
+
+  .alien {
     display: none;
   }
+
   .over {
     margin-top: 40%;
   }
-  .containMobile{
+
+  .containMobile {
     background-color: #FFFFFF;
   }
 
@@ -41,12 +100,13 @@ body{
     top: 50px;
   }
 
- .bottt {  
+  .bottt {
     font-size: 20px !important;
-    font-weight: bold ;
+    font-weight: bold;
 
   }
-  .www{
+
+  .www {
     width: 5px !important;
   }
 }
@@ -131,12 +191,14 @@ small {
     padding-left: 30px;
     padding-right: 30px;
   }
+
   .contain {
     background-color: #FFFFFF;
     padding: 30px 20px 10px 30px;
     margin-top: 30px;
   }
-  .alien-2{
+
+  .alien-2 {
     display: none;
   }
 
@@ -310,14 +372,20 @@ input:checked+.slider:before {
   display: block;
 }
 
-.top{
+.top {
   margin-top: 80px !important;
 }
-.alig{
+
+.top2 {
+  margin-top: 40px !important;
+}
+
+.alig {
   display: flex;
   align-items: center;
   justify-content: space-around;
 }
-.ghq{
+
+.ghq {
   font-size: 10px !important;
 }

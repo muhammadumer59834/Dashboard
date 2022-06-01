@@ -255,7 +255,7 @@ function Main() {
                     </div>
                     {/* footer */}
                     <footer className="main-footer">
-                        © 2022 - 2023 AL RAHIM RETAIL LTD Powered by G-Tech. All Rights Reserved.
+                        © 2022 - 2023 AL RAHIM RETAIL LTD Powered by G-Tech. <br /> All Rights Reserved.
 
                     </footer>
                     <div className="control-sidebar-bg"></div>

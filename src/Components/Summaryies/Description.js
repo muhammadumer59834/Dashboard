@@ -1,39 +1,74 @@
-import React, { useEffect, useState } from "react";
-import axios from 'axios';
-import Chart from 'react-apexcharts'
+import React, { useState, useEffect } from "react";
+import Chart from "react-apexcharts";
+import axios from 'axios'
+
 
 function Description() {
 
-    // date
 
-    const current = new Date();
-    const date = `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()}`;
-    const MounthDate = `${current.getMonth()}/01/${current.getFullYear()}`;
-    // table data fetching
 
-    const [books, setBooks] = useState(null);
 
-    // + adding the use
+
+    const [stdudentSubject, setStudentsubject] = useState([]);
+    const [studentMarks, setStudentMarks] = useState([]);
+
+    const [items, setItems] = useState([]) //this will represent the items that will be coming from the API
+    // const [isLoading, setLoading] = useState(true)
+
+
     useEffect(() => {
-        getData();
 
-        // we will use async/await to fetch this data
-        async function getData() {
-            const response = await fetch(`https://posapi.gtech.com.pk/api/post/SalesSummary?api=qTpq3bVFho&DateFrom${MounthDate}&DateTo=${date}`);
-            const data = await response.json();
 
-            // store the data into our books variable
-            setBooks(data);
-            console.log(data);
+        //date
+        const current = new Date();
+        const date = `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()}`;
+        const MounthDate = `${current.getMonth()}/01/${current.getFullYear()}`;
+
+        // cahrt
+        const sSubject = [];
+        const sMarks = [];
+        const getStudentdata = async () => {
+            const reqData = await fetch(`https://posapi.gtech.com.pk/api/post/LocationSummary?api=qTpq3bVFho&DateFrom=${MounthDate}&DateTo=${date}`);
+            const resData = await reqData.json();
+            for (let i = 0; i < resData.length; i++) {
+                sSubject.push(resData[i].locationName);
+                sMarks.push(parseInt(resData[i].monthly));
+            }
+            setStudentsubject(sSubject);
+            setStudentMarks(sMarks);
+            //console.log(resData); 
         }
-    }, []); // <- you may need to put the setBooks function in this array
 
+        getStudentdata();
+
+        // table
+
+        const getItems = async () => {
+            const result = await axios(
+                `https://posapi.gtech.com.pk/api/post/LocationSummary?api=qTpq3bVFho&DateFrom=${MounthDate}&DateTo=${date}` //Endpoint and parameter or base Url
+            )
+            // console.log(result.data)
+
+            setItems(result.data)//sets the data to appear 
+            // setLoading(false) //stop loading when data is fetched
+
+
+        }
+        getItems()
+
+
+    }, []);
+
+
+    let idSum = 0;
+    for (let i = 0; items&& i < items.length; i++) {
+        idSum +=items[i].today;
+    }
 
 
     return (
         <>
-
-            <h4 className='mt-4'>Location Summary</h4>
+            <h4 className='mt-4'>{idSum}</h4>
 
 
             <div className='myTbl'>
@@ -41,7 +76,65 @@ function Description() {
 
                 <div className="row">
                     <div className="col-md-12 col-sm-12" >
-                        <table className='tbl-category table table-hover display nowrap' width="100%">
+                        <div className="view">
+                            <div className="wrapper">
+                                <table className="table  table-hover" id="dome">
+                                    <thead id="tom">
+                                        <tr>
+                                            <th className="sticky-col first-col coltm4">Location Name</th>
+                                            <tr className='ak'> &nbsp; </tr>
+                                            <th className="coltm4">Today</th>
+                                            <tr className='ak'> &nbsp; </tr>
+                                            <th className="coltm4">Yesterday</th>
+                                            <tr className='ak'> &nbsp; </tr>
+                                            <th className="coltm4">Monthly</th>
+                                            <tr className='ak'> &nbsp; </tr>
+                                            <th className="coltm4">Previous Month</th>
+                                            <tr className='ak'> &nbsp; </tr>
+                                            <th className="coltm4">Gross Sale</th>
+                                            <tr className='ak'> &nbsp; </tr>
+                                            <th className="coltm4">GP Margin</th>
+                                            <tr className='ak'> &nbsp; </tr>
+                                            <th className="coltm4">SQFeetYeild</th>
+                                            <tr className='ak'> &nbsp; </tr>
+                                            <th className="coltm4">RentRevenueRatio</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="some" id="dome" style={{}}>
+
+                                        {items.map((item, index) => (   //here we map through the items
+                                            <tr className='bg-white' key={index}>
+
+                                                <td className="sticky-col first-col">{item.locationName}</td>
+
+                                                <tr className='ak'> &nbsp; </tr>
+                                                <td className="text-center ind">{(item.today).toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                                <tr className='ak'> &nbsp; </tr>
+                                                <td className="text-center ind">{(item.yesterday).toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                                <tr className='ak'> &nbsp; </tr>
+                                                <td className="text-center ind">{(item.monthly).toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                                <tr className='ak'> &nbsp; </tr>
+                                                <td className="text-center ind">{(item.previous).toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                                <tr className='ak'> &nbsp; </tr>
+                                                <td className="text-center ind">{(item.grossSale).toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                                <tr className='ak'> &nbsp; </tr>
+                                                <td className="text-center ind">{(item.gpMargin).toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                                <tr className='ak'> &nbsp; </tr>
+                                                <td className="text-center ind">{(item.sqFeetYeild).toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                                <tr className='ak'> &nbsp; </tr>
+                                                <td className="text-center ind">{(item.rentRevenueRatio).toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                                {/* <tr className='ak'> &nbsp; </tr> */}
+                                                {/* <td className="text-center ind">{item.reduce((acc, curr) => acc + curr.today, 0)}</td> */}
+                                            </tr>
+                                        ))}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        {/* <table className='tbl-category table table-hover display nowrap' width="100%">
                             <thead >
                                 <tr className="bg-inverse" style={{ fontWeight: 800 }}>
                                     <th className="bb-2 bg-inverse text-center ">Description</th>
@@ -56,76 +149,54 @@ function Description() {
                                 </tr>
                             </thead>
                             <tbody className="dataTables_scrollBody fix" style={{ position: 'relative', overflow: 'auto', width: '100%', maxHeight: '50vh' }}>
-                                {/*  */}
-                                {/* display books from the API */}
+                                {items.map((item, index) => (   //here we map through the items
+                                    <tr className='bg-white' key={index}>
 
-                                {/*  */}
+                                        <td>{item.locationName}</td>
+                                        <td>{item.todayQty}</td>
+                                        <td>{item.todayQty}</td>
+                                        <td>{item.todayQty}</td>
+                                        <td>{item.todayQty}</td>
+                                        <td>{item.todayQty}</td>
+                                        <td>{item.todayQty}</td>
+                                    </tr>
+                                ))}
 
 
 
 
                             </tbody>
-                        </table>
+                        </table> */}
 
                     </div>
 
                 </div>
             </div>
-            {/*  */}
-
-                <table class="table mb-0">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
-                    </tbody>
-                </table>
-
             {/* Chart */}
             <div className='top ' >
-                <div className="container-fluid mb-3 mt-5 alig" >
-                    {/* <Chart className='righ'
+                <p className="text-center h4 ">Location Wise Category Detail Report</p>
+
+                <div className="container-fluid mb-3 mt-5 alig top2" >
+                    <Chart
                         type="pie"
                         width={300}
                         height={320}
 
-                        series={[ 200, 300, 500, 88, 334, 532, 456, 734, 223, 565, 777, 255, 244]}
-
+                        series={studentMarks}
 
                         options={{
 
-                            colors: ['#C3C3C3', '#E5E5E5', '#71CC81', '#19B28E', '#F2F18B', ' #71CC81', ' #19B28E', '#216583', '#424D7B', '#FFD72F'],
-                            noData: { text: "No Data" },
-                            labels: [ 'ISB-CENTAURUS MALL', 'KHI-DOLMEN MALL CLIFTON', 'KHI-KDA MARKET', 'KHI-ATRM', 'KHI-UNIVERSITY ROAD', 'KHI-SHAHEED E MILLAT', 'PSW-UNIVERSITY ROAD', 'LHR-PACKAGES MALL', 'LHR-EMPORIUM MALL', 'MRPK-HYDERABAD ROAD', 'KWL-SIR SYED ROAD', 'SLKT-MALL OF SIALKOT FIRST FLOOR', 'DSK-COLLEGE ROAD'],
+                            noData: { text: "Loading" },
+                            // colors:["#f90000","#f0f"],
+                            colors: ['#5E667F', '#19B28E', '#5E667F', '#FFD72F', '#592975', '#71CC81', '#199AA3'],
+                            labels: stdudentSubject,
                             legend: {
                                 show: false
                             }
+
                         }}
                     >
-                    </Chart> */}
+                    </Chart>
                 </div>
             </div>
         </>

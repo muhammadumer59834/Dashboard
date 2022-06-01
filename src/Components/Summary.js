@@ -81,7 +81,7 @@ function Summary() {
 
 
 
-            const url = `https://posapi.gtech.com.pk/api/post/SalesSummary?api=qTpq3bVFho&DateFrom${MounthDate}&DateTo=${date}`
+            const url = `https://posapi.gtech.com.pk/api/post/SalesSummary?api=qTpq3bVFho&DateFrom=${MounthDate}&DateTo=${date}`
             console.log(url);
 
             axios
@@ -170,9 +170,9 @@ function Summary() {
                             <table className='tbl-category table table-hover display nowrap' width="100%">
                                 <thead >
                                     <tr className="bg-inverse" style={{ fontWeight: 800 }}>
-                                        <th className="bb-2 bg-inverse text-center mg">Description</th>
-                                        <th className="bb-2 bg-inverse text-center mg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gross Sale&nbsp;</th>
-                                        <th className="bb-2 bg-inverse text-center mg">&nbsp;&nbsp;Net Sale&nbsp;&nbsp;</th>
+                                        <th className="bb-2 bg-inverse text-center mg">&nbsp;&nbsp;&nbsp;&nbsp;Description&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <th className="bb-2 bg-inverse text-center mg">&nbsp;&nbsp;&nbsp;&nbsp;Gross Sale&nbsp;&nbsp;&nbsp;</th>
+                                        <th className="bb-2 bg-inverse text-center mg">&nbsp;&nbsp;&nbsp;Net Sale&nbsp;&nbsp;</th>
                                         <th className="bb-2 bg-inverse text-center mg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Qty&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                         <th className="bb-2 bg-inverse text-center mg">&nbsp;&nbsp;&nbsp;Discount&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                         <th className="bb-2 bg-inverse text-center mg">&nbsp;Sales Return&nbsp;</th>
@@ -194,7 +194,7 @@ function Summary() {
                                         <td>{(todaysalesReturn).toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
                                         <td>{(todaytotalBills).toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
                                         <td>{(todayaverageBill).toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
-                                        <td>{(todaygpMargin).toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                        <td className="centr">{(todaygpMargin).toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
 
                                     </tr>
                                     {/* Yesterday */}
@@ -252,7 +252,7 @@ function Summary() {
                                     {/* Previous Year Month */}
 
                                     <tr>
-                                        <td>Previous Year Month</td>
+                                        <td>Prev Year Month</td>
 
                                         <td>{(previousYearMonthgrossSale).toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
                                         <td>{(previousYearMonthnetSale).toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
@@ -272,7 +272,7 @@ function Summary() {
 
                         {/* chart */}
 
-                        <div className='col-md-4 col-sm-12'>
+                        <div className='col-md-4 col-sm-12 mobile-margin'>
                             <div className="container-fluid mb-5">
                                 <Chart
                                     type="bar"
@@ -297,9 +297,7 @@ function Summary() {
                                                 ChartDatePrevious,
                                                 ChartDate 
                                             ],
-                                            fill: {
-                                                colors: ['#F44336', '#E91E63']
-                                              },
+                                            colors: ["#77AFF9", "#3EB489"],
                                         },
 
                                         yaxis: {
@@ -309,7 +307,7 @@ function Summary() {
                                                     return `${val.toLocaleString()}`;
                                                 },
 
-                                                style: { fontSize: "15", colors: ["black"] },
+                                                style: { fontSize: "11", colors: ["black"] },
                                             },
 
                                         },
@@ -325,7 +323,7 @@ function Summary() {
                                             },
                                             style: {
                                                 colors: ["#f4f4f4"],
-                                                fontSize: 15,
+                                                fontSize: 13,
                                             },
                                         },
                                     }}
